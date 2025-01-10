@@ -5,88 +5,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة نسب الحموضة</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
             text-align: center;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #333;
+            font-size: 28px;
+            margin-top: 20px;
+            color: #ffdd57;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         table {
-            width: 100%;
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
-            margin: 20px 0;
         }
 
-        table th, table td {
+        th, td {
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #fff;
             text-align: center;
         }
 
-        table th {
-            background-color: #007bff;
-            color: white;
+        th {
+            background: #ff7eb3;
         }
 
-        input[type="number"] {
+        td {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        input {
             width: 80%;
             padding: 5px;
-            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
         }
 
         button {
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
-            color: #fff;
-            background-color: #28a745;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+            color: #fff;
             cursor: pointer;
+            transition: all 0.3s ease-in-out;
         }
 
         button:hover {
-            background-color: #218838;
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #38f9d7, #43e97b);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>إدارة نسب الحموضة للمحافظات</h1>
-        <form id="acidity-form">
-            <table>
-                <thead>
-                    <tr>
-                        <th>المحافظة</th>
-                        <th>عدد المصوتين</th>
-                        <th>نسبة الحموضة</th>
-                    </tr>
-                </thead>
-                <tbody id="province-table">
-                    <!-- سيتم ملء الجدول تلقائيًا -->
-                </tbody>
-            </table>
-            <button type="submit">حفظ التعديلات</button>
-        </form>
+    <h1>إدارة نسب الحموضة</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>المحافظة</th>
+                <th>عدد المصوتين</th>
+                <th>نسبة الحموضة</th>
+            </tr>
+        </thead>
+        <tbody id="provinces-table">
+            <tr>
+                <td>بغداد</td>
+                <td><input type="number" value="50" data-province="بغداد" data-field="votes"></td>
+                <td><input type="number" value="70" data-province="بغداد" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>البصرة</td>
+                <td><input type="number" value="30" data-province="البصرة" data-field="votes"></td>
+                <td><input type="number" value="60" data-province="البصرة" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>ميسان</td>
+                <td><input type="number" value="20" data-province="ميسان" data-field="votes"></td>
+                <td><input type="number" value="50" data-province="ميسان" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>النجف</td>
+                <td><input type="number" value="40" data-province="النجف" data-field="votes"></td>
+                <td><input type="number" value="65" data-province="النجف" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>كربلاء</td>
+                <td><input type="number" value="25" data-province="كربلاء" data-field="votes"></td>
+                <td><input type="number" value="55" data-province="كربلاء" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>نينوى</td>
+                <td><input type="number" value="35" data-province="نينوى" data-field="votes"></td>
+                <td><input type="number" value="58" data-province="نينوى" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>الأنبار</td>
+                <td><input type="number" value="20" data-province="الأنبار" data-field="votes"></td>
+                <td><input type="number" value="45" data-province="الأنبار" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>بابل</td>
+                <td><input type="number" value="28" data-province="بابل" data-field="votes"></td>
+                <td><input type="number" value="53" data-province="بابل" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>ديالى</td>
+                <td><input type="number" value="18" data-province="ديالى" data-field="votes"></td>
+                <td><input type="number" value="48" data-province="ديالى" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>واسط</td>
+                <td><input type="number" value="22" data-province="واسط" data-field="votes"></td>
+                <td><input type="number" value="50" data-province="واسط" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>ذي قار</td>
+                <td><input type="number" value="26" data-province="ذي قار" data-field="votes"></td>
+                <td><input type="number" value="52" data-province="ذي قار" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>المثنى</td>
+                <td><input type="number" value="14" data-province="المثنى" data-field="votes"></td>
+                <td><input type="number" value="40" data-province="المثنى" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>القادسية</td>
+                <td><input type="number" value="16" data-province="القادسية" data-field="votes"></td>
+                <td><input type="number" value="42" data-province="القادسية" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>صلاح الدين</td>
+                <td><input type="number" value="24" data-province="صلاح الدين" data-field="votes"></td>
+                <td><input type="number" value="51" data-province="صلاح الدين" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>كركوك</td>
+                <td><input type="number" value="19" data-province="كركوك" data-field="votes"></td>
+                <td><input type="number" value="49" data-province="كركوك" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>أربيل</td>
+                <td><input type="number" value="30" data-province="أربيل" data-field="votes"></td>
+                <td><input type="number" value="57" data-province="أربيل" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>دهوك</td>
+                <td><input type="number" value="15" data-province="دهوك" data-field="votes"></td>
+                <td><input type="number" value="43" data-province="دهوك" data-field="acidity"></td>
+            </tr>
+            <tr>
+                <td>السليمانية</td>
+                <td><input type="number" value="32" data-province="السليمانية" data-field="votes"></td>
+                <td><input type="number" value="59" data-province="السليمانية" data-field="acidity"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button id="save-btn">حفظ التغييرات</button>
+
+    <div class="footer">
+        حقوق النشر © 2025 - <a href="https://t.me/caser7" style="color: #ffdd57; text-decoration: none;">telegram:caser7</a>
     </div>
 
     <script>
-        let provinces = {
+        const provinces = JSON.parse(localStorage.getItem("provinces")) || {
             بغداد: { votes: 50, acidity: 70 },
             البصرة: { votes: 30, acidity: 60 },
             ميسان: { votes: 20, acidity: 50 },
@@ -107,51 +209,33 @@
             السليمانية: { votes: 32, acidity: 59 }
         };
 
-        function loadTable() {
-            const tableBody = document.getElementById("province-table");
-            tableBody.innerHTML = "";
+        const table = document.getElementById("provinces-table");
 
+        function loadProvinces() {
+            table.innerHTML = "";
             for (const [province, data] of Object.entries(provinces)) {
                 const row = document.createElement("tr");
-
                 row.innerHTML = `
                     <td>${province}</td>
-                    <td><input type="number" min="0" value="${data.votes}" data-province="${province}" data-type="votes"></td>
-                    <td><input type="number" min="0" max="100" value="${data.acidity}" data-province="${province}" data-type="acidity"></td>
+                    <td><input type="number" value="${data.votes}" data-province="${province}" data-field="votes"></td>
+                    <td><input type="number" value="${data.acidity}" data-province="${province}" data-field="acidity"></td>
                 `;
-
-                tableBody.appendChild(row);
+                table.appendChild(row);
             }
         }
 
-        document.getElementById("acidity-form").addEventListener("submit", (event) => {
-            event.preventDefault();
-
+        document.getElementById("save-btn").addEventListener("click", () => {
             const inputs = document.querySelectorAll("input");
-            inputs.forEach((input) => {
-                const province = input.getAttribute("data-province");
-                const type = input.getAttribute("data-type");
-                provinces[province][type] = parseFloat(input.value);
+            inputs.forEach(input => {
+                const province = input.dataset.province;
+                const field = input.dataset.field;
+                provinces[province][field] = parseInt(input.value, 10);
             });
-
-            saveDataToFile();
+            localStorage.setItem("provinces", JSON.stringify(provinces));
+            alert("تم حفظ التغييرات بنجاح!");
         });
 
-        function saveDataToFile() {
-            const dataStr = JSON.stringify(provinces, null, 2);
-            const blob = new Blob([dataStr], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "provinces.json";
-            a.click();
-
-            URL.revokeObjectURL(url);
-            alert("تم حفظ البيانات بنجاح!");
-        }
-
-        loadTable();
+        loadProvinces();
     </script>
 </body>
 </html>
