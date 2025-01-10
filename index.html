@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة نسب الحموضة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>إدارة نسب الحموضة للمحافظات</h1>
+        <form id="acidity-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المحافظة</th>
+                        <th>عدد المصوتين</th>
+                        <th>نسبة الحموضة</th>
+                    </tr>
+                </thead>
+                <tbody id="province-table">
+                    <!-- سيتم ملء الجدول تلقائيًا -->
+                </tbody>
+            </table>
+            <button type="submit">حفظ التعديلات</button>
+        </form>
+    </div>
+
+    <script>
+        let provinces = {
+            بغداد: { votes: 50, acidity: 70 },
+            البصرة: { votes: 30, acidity: 60 },
+            ميسان: { votes: 20, acidity: 50 },
+            النجف: { votes: 40, acidity: 65 },
+            كربلاء: { votes: 25, acidity: 55 },
+            نينوى: { votes: 35, acidity: 58 },
+            الأنبار: { votes: 20, acidity: 45 },
+            بابل: { votes: 28, acidity: 53 },
+            ديالى: { votes: 18, acidity: 48 },
+            واسط: { votes: 22, acidity: 50 },
+            ذي_قار: { votes: 26, acidity: 52 },
+            المثنى: { votes: 14, acidity: 40 },
+            القادسية: { votes: 16, acidity: 42 },
+            صلاح_الدين: { votes: 24, acidity: 51 },
+            كركوك: { votes: 19, acidity: 49 },
+            أربيل: { votes: 30, acidity: 57 },
+            دهوك: { votes: 15, acidity: 43 },
+            السليمانية: { votes: 32, acidity: 59 }
+        };
+
+        function loadTable() {
+            const tableBody = document.getElementById("province-table");
+            tableBody.innerHTML = "";
+
+            for (const [province, data] of Object.entries(provinces)) {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${province}</td>
+                    <td><input type="number" min="0" value="${data.votes}" data-province="${province}" data-type="votes"></td>
+                    <td><input type="number" min="0" max="100" value="${data.acidity}" data-province="${province}" data-type="acidity"></td>
+                `;
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        document.getElementById("acidity-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const inputs = document.querySelectorAll("input");
+            inputs.forEach((input) => {
+                const province = input.getAttribute("data-province");
+                const type = input.getAttribute("data-type");
+                provinces[province][type] = parseFloat(input.value);
+            });
+
+            saveDataToFile();
+        });
+
+        function saveDataToFile() {
+            const dataStr = JSON.stringify(provinces, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "provinces.json";
+            a.click();
+
+            URL.revokeObjectURL(url);
+            alert("تم حفظ البيانات بنجاح!");
+        }
+
+        loadTable();
+    </script>
+</body>
+</html>
